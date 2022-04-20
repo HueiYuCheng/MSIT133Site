@@ -3,35 +3,95 @@
 }
 
 @section Styles{
-    <style>
-        h2 {
-            color: blue;
-        }
-    </style>
+<style>
+    h2 {
+        color: blue;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+    #t1{
+        display:inline-block;
+        margin: 0 auto;
+        font-size: large;
+    }
+</style>
 }
 
 
 <div class="text-center">
     <h1>GitHub Practice</h1>
     <input type="button" value="click" id="button1" />
-    <div id="div1"></div>
+    <div id="div1">
+        <table id="t1">
+        </table>
+    </div>
 </div>
 
 
 @section Scripts{
-    <script>
-        //JavaScript
+
+<script>
+    //JavaScript
+    //const btn = document.querySelector('#button1');
+    //const myDiv = document.querySelector('#div1');
+    //btn.addEventListener('click', () => {
+    //    myDiv.innerHTML = "<h2>Hello JavaScript!<h2/>";
+    //})
+
+    //jQuery
+    $('#button1').click(() => {
+
+        /*   $('#div1').html('<h2>Hello  JavaScript!</h2>');*/
+
+
         //const btn = document.querySelector('#button1');
         //const myDiv = document.querySelector('#div1');
-        //btn.addEventListener('click', () => {
-        //    myDiv.innerHTML = "<h2>Hello JavaScript!<h2/>";
-        //})
+        //btn.addEventListener('click'), () => {
 
-            //jQuery
-            $('#button1').click(() => {
-                $('#div1').html('<h2>Hello  JavaScript!</h2>');
-            })
-    </script>
+        //    var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+        //    { "name": "Jack", "workYears": 5, "salary": 40000 },
+        //        { "name": "Mary", "workYears": 7, "salary": 45000 }];
+        //    console.log(emps[2].name) //Mary
+        //    console.log(emps[2].salary)  //45000
+        //}
+
+        var emp = {
+            "employees": [
+                { "name": "Tom", "workYears": 3, "salary": 35000 },
+                { "name": "Jack", "workYears": 5, "salary": 40000 },
+                { "name": "Mary", "workYears": 7, "salary": 45000 }
+            ]
+        };
+        //emp =>{}
+        //emp.employees =>[]
+        for (let i = 0, max = emp.employees.length; i < max; i++) {
+            console.log(emp.employees[i].name);
+            console.log(emp.employees[i].workYears);
+            console.log(emp.employees[i].salary);
+        };
+
+         var table =$("#t1");
+                   var table =$("#t1");
+         var rowHeader =$("<tr></tr>");
+            var nameHeader=$("<th></th>").text("Name");
+            var workYearsHeader=$("<th></th>").text("WorkYears");
+            var salaryHeader=$("<th></th>").text("Salary");
+            rowHeader.append(nameHeader,workYearsHeader,salaryHeader);
+            table.append(rowHeader);
+        $.each(emp.employees,function (index,item){
+            var row =$("<tr></tr>");
+            var name=$("<td></td>").text(item.name);
+            row.append(name);
+            var workYears=$("<td></td>").text(item.workYears);
+            var salary=$("<td></td>").text(item.salary);
+            row.append(workYears,salary);
+            table.append(row);
+
+        });
+    })
+
+</script>
 
 }
-
