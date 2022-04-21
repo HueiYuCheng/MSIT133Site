@@ -1,4 +1,22 @@
-﻿<form>
+﻿@section Scripts{
+<script>
+    $(document).ready(function(){
+        $("#btnSubmit").click(register);
+    });
+    function register(){
+        ;
+        $.ajax({
+                method: "POST",
+                url: "/Member/Register",
+                data: { Name:$("#name").val(), Email: $("#email").val(),Age:$("#age").val() },
+                success:function(result){
+                    alert(result);
+                }
+            });
+    }
+</script>
+}
+<form>
     <div class="form-group">
         <label for="name">UserName</label>
         <input type="text" class="form-control" id="name">
@@ -16,5 +34,5 @@
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
 </form>

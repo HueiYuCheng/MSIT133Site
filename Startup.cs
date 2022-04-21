@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MSIT133Site.Service;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +27,15 @@ namespace MSIT133Site
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //DI 依賴注入 (Dependency Injection)
+            services.AddScoped<IDbConnection, SqlConnection>(serviceProvider => {
+                SqlConnection conn = new SqlConnection();
+                //指派連線字串
+                conn.ConnectionString = Configuration.GetConnectionString("DemoDbConnectionString");
+                return conn;
+            });
+
+            services.AddScoped<IMemberService, MemberService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +62,7 @@ namespace MSIT133Site
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=MemberRegister}/{action=index}/{id?}");
+                    pattern: "{controller=Member}/{action=index}/{id?}");
             });
         }
     }
