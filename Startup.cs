@@ -50,7 +50,7 @@ namespace MSIT133Site
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=MemberRegister}/{action=index}/{id?}");
             });
         }
     }
