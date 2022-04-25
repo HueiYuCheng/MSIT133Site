@@ -57,8 +57,14 @@
             divMessage.innerHTML = "取消執行";
         })
         //Step2. 對伺服器發出要求(Request)
-        xhr.open("GET", `/api/index?userName=${txtName.value}&age=${txtAge.value}`); //打開瀏覽器輸入網址
-        xhr.timeout = 5000;
+        @*@Url.Action()
+        @Url.Content()*@
+        //const url = "@Url.Action("Index","api")";
+        const url = "@Url.Content("~/api/index")"
+        const params = `?userName=${txtName.value}&age=${txtAge.value}`;
+       // xhr.open("GET", `/api/index?userName=${txtName.value}&age=${txtAge.value}`); //打開瀏覽器輸入網址
+        xhr.open("GET",`${url}${params}`)
+        xhr.timeout = 5000; //超過時間伺服器沒有回應，停止程式的執行
         xhr.send(); //按下Enter鍵
     })
 

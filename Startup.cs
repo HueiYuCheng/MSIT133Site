@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MSIT133Site.Models;
 using MSIT133Site.Service;
 using System;
 using System.Collections.Generic;
@@ -26,7 +28,7 @@ namespace MSIT133Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
             //DI ¨Ì¿àª`¤J (Dependency Injection)
             services.AddScoped<IDbConnection, SqlConnection>(serviceProvider => {
                 SqlConnection conn = new SqlConnection();
@@ -36,6 +38,13 @@ namespace MSIT133Site
             });
 
             services.AddScoped<IMemberService, MemberService>();
+
+            //entity framework
+            services.AddDbContext<DemoContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DemoDbConnectionString"));
+            });
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +71,7 @@ namespace MSIT133Site
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Member}/{action=index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
